@@ -48,6 +48,23 @@
     </div>
 </div>
 <div class="row">
+
+    <div class="col s8 input-field">
+   
+        <select name="" id="marca">
+            @foreach($marcas as $marca)
+                 <option value="">
+                        {{ $marca->nombre}}
+                </option>
+        
+        @endforeach
+        </select>
+        <label for="marca">Elija marca</label>
+
+    </div>
+
+</div>
+<div class="row">
     <button class="btn waves-efects waves-light" type="submit">
         Guardar
     </button>
