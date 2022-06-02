@@ -13,7 +13,8 @@
     <form 
     method="POST"
     action="{{ route('productos.store') }}"
-    class="col s8">
+    class="col s8"
+    enctype="multipart/form-data">
     @csrf
         <div class="row">
             <div class="input-field col s8">
@@ -85,11 +86,12 @@
                     <span>
                         Imagen del Producto
                     </span>
-                    <input type="file" name="imagen">
+                    <input type="file" name="imagen" >
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path" type="text">
                 </div>
+                <span class="blue-text text-darken-2">{{ $errors->first('imagen') }}</span>
             </div>
         </div>
         <div class="row">

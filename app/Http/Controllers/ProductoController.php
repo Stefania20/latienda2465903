@@ -51,13 +51,17 @@ class ProductoController extends Controller
      */
     public function store(Request $r)
     {
+        
+          
+        
         //1.Establecer las reglas de validadion que apliquen a cada campo
         $reglas =[
             "nombre" => 'required|alpha',
             "desc" => 'required|min:20|max:50',
             "precio" => 'required|numeric',
             "marca" => 'required',
-            "categoria" => 'required'
+            "categoria" => 'required',
+            "imagen" => 'required|image'
 
         ];
 
@@ -67,7 +71,8 @@ class ProductoController extends Controller
             "alpha" => "Solo letras",
             "min" => "Minimo 20 caracteres",
             "max" => "Maximo 50 caracteres",
-            "numeric" => "Solo numeros"
+            "numeric" => "Solo numeros",
+            "imagen" => "Solo archivos de png"
             
         ];
 
@@ -86,6 +91,14 @@ class ProductoController extends Controller
 
 
         }else{
+            //Acceder a propiedades del archivo cargado
+            $archivo = $r->imagen;
+            $nombre_archivo = $archivo->getClientOriginalName();
+            //Establecer la ubicacion donde se almacenara el archivo
+            $ruta=public_path()."/img";
+            //Mover el archivo
+            $archivo->move($ruta,$nombre_archivo);
+
             //validacion correcta
 
             //Crear nuevo producto<<entity>>
@@ -93,6 +106,7 @@ class ProductoController extends Controller
             //Asignar valores a los atributos del producto
             $p->nombre = $r->nombre;
             $p->desc = $r->desc;
+            $p->imagen =$nombre_archivo;    
             $p->precio = $r->precio;
             $p->marca_id = $r->marca;
             $p->categoria_id = $r->categoria;
